@@ -8,8 +8,56 @@
 // Note how there are no references here to dispatch, nor to the actions module.
 
 import React, { PropTypes } from 'react';
+import ReactGSAPTransitionGroup from 'react-addons-gsap-transition-group';
+import TweenMax from 'gsap';
 
-const Count = ( props ) => (<div className="current-count">{ props.count }</div>);
+function tweenEnterFactory({ target, options }) {
+	let distance = 15;
+
+	return TweenMax.fromTo( target, 0.3, {
+		y: `-=${ distance }`,
+		opacity: 0
+	}, {
+		y: `+=${ distance }`,
+		opacity: 1
+	});
+}
+
+function tweenLeaveFactory({ target, options }) {
+	let distance = 15;
+
+	return TweenMax.fromTo( target, 0.3, {
+		y: `+=0`,
+		opacity: 0
+	}, {
+		y: `+=${ distance }`,
+		opacity: 1
+	});
+}
+
+const Count = ( props ) => (
+	<ReactGSAPTransitionGroup
+		component="div" className="current-count" style={{
+			position: 'relative',
+			overflow: 'hidden',
+			height: '30px',
+			width: '30px',
+		}}
+		tweenEnter={ tweenEnterFactory }
+		tweenLeave={ tweenLeaveFactory }
+		>
+		<div key={ `c${props.count}` }
+			style={{
+				position: 'absolute',
+				top: '0',
+				left: '0',
+				width: '100%',
+				height: '100%',
+				fontSize: '2em'
+			}}
+			>{ props.count }</div>
+	</ReactGSAPTransitionGroup>
+);
 
 // It's good practice to define the prop types your component needs.
 // If you misuse one, React can (more) immediately tell you.

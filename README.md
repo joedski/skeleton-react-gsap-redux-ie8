@@ -1,7 +1,7 @@
-Skeleton: React+Redux in IE8
-============================
+Skeleton: React+Redux+GSAP in IE8
+=================================
 
-A jumping-off point for creating React+Redux apps that support IE8.  To this end, it is locked to version 0.14.x of ReactJS.  Redux, being more or less just a pile of functions, doesn't have to worry as much about IE8's ES3 environment, unlike with FluxUtils.
+A jumping-off point for creating React+Redux apps that support IE8 while maintaining animatability by using GSAP.  To this end, it is locked to version 0.14.x of ReactJS.  Redux, being more or less just a pile of functions, doesn't have to worry as much about IE8's ES3 environment, unlike with FluxUtils.
 
 Additionally, in a properly configured environment, this should provide ESLint-based linting and Flow type checking right off the bat.
 
@@ -14,7 +14,7 @@ Libraries
 
 ### Compatibility
 
-Ensuring broad compatibility across such a wide range of browserse basically requires updating them all to modern day JS Environments.  To that end, the following additional libraries are employed:
+Ensuring broad compatibility across such a wide range of browsers basically requires updating them all to modern day JS Environments.  To that end, the following additional libraries are employed:
 
 - [core-js](https://www.npmjs.com/package/core-js)
 - [console-polyfill](https://www.npmjs.com/package/console-polyfill)
@@ -31,6 +31,13 @@ Ensuring broad compatibility across such a wide range of browserse basically req
 	- See [the Async Actions section of the Redux Tutorial](http://redux.js.org/docs/advanced/AsyncActions.html) for a more step-by-step use of ReduxThunk.
 - [ReduxLogger](https://www.npmjs.com/package/redux-logger) for middleware to log all actions dispatched the mutations they result in during development.
 - [Reselect](https://github.com/reactjs/reselect) for derived data.
+
+
+### Animation
+
+- [ReactGSAPTransitionGroup](https://www.npmjs.com/package/react-addons-gsap-transition-group) to use GSAP animations to animate transitions.
+- [ReactGSAPEnhancer](https://www.npmjs.com/package/react-gsap-enhancer) to use GSAP to create arbitrarily composable animations, just like in non-React land.
+	- As noted in the README [you might not need the Enhancer for the simplest use cases](https://egghead.io/lessons/react-using-tweenmax-with-react).  If you need to deal with interaction, though, you're better off sticking with the Enhancer.
 
 
 ### Other Libraries
@@ -148,3 +155,8 @@ Additionally, due to sticking to the `es2015` Babel preset, you cannot readily u
 ES6, though some of the features are a bit to get used to, provides a great number of affordances in the grammar that ease expressing programmer intent.  Mostly, these can be translated to ES3 with minimal unexpected behavior, but there are still considerations one must keep in mind when targeting an ES3 environment even with transpilation, the lack of getters/setters being just one of them.
 
 If you run into `Object doesn't support this property or method` errors in IE, make sure you've got `es3ify` still running (it should be) and haven't tried to call a property that's defined by a getter.
+
+
+### Animation in IE8
+
+Animation is a useful affordance to cue the user into things happening and makes apps seem less sterile.  Depending on what exactly you're targetting, though, you may wish to be careful to not overload the browser.  Battles are won in nuance, after all.
