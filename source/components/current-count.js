@@ -28,16 +28,17 @@ function tweenLeaveFactory({ target, options }) {
 
 	return TweenMax.fromTo( target, 0.3, {
 		y: `+=0`,
-		opacity: 0
+		opacity: 1
 	}, {
 		y: `+=${ distance }`,
-		opacity: 1
+		opacity: 0
 	});
 }
 
 const Count = ( props ) => (
 	<ReactGSAPTransitionGroup
-		component="div" className="current-count" style={{
+		component="div" className="current-count"
+		style={{
 			position: 'relative',
 			overflow: 'hidden',
 			height: '30px',
